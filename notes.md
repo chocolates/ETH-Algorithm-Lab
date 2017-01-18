@@ -48,6 +48,7 @@ L = lmin;
 * _Search Snippets(week 2)_ 
 * _Moving books(week 2)_: Sort books and people by its weight and strength. Iterate each book and allocate it to suitable people.
 * _Octopussy(week2)_: Iterate each (leaves) balls one-by-one. Use a priority queue for help.
+* _Hiking maps(week 3)_
 
 
 
@@ -75,6 +76,28 @@ L = lmin;
 ## Brute Force / Split and List
 
 
+
+## CGAL - Intro
+
+> Combinatorial Algorithm <— Geometric Predicate <— Algebraic Computation
+>
+> 1.  algebraic computation is non-trivial 
+> 2. Filtering to ganrantee correctness: Check whether things go fine and use exact algebra only 		when needed
+> 3. Exact construction is very expensive ==> If possible, use predicates with numerical tests decide branching instead of exact construction
+
+```
+double could store 53-bit integer(without +-*/); and 25-bit integer for + - *
+```
+
+> (1) K::Point_2; K::FT; std::setiosflags(std::ios::fixed); std::setprecision(2); point.x(); point.y(); (2) return type of intersection; (3) bounding volumes [slide 3]
+
+
+
+#### problems:
+
+* _Hit(week 3)_: use _long_ to save the 51-bits integers
+* _First hit(week3)_: try to avoid constructions and use ```std::random_shuffle()``` 
+* _Hiking maps(week 3)_: together with sliding window.
 
 ## LP/QP
 
