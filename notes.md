@@ -4,6 +4,61 @@
 
 ## Dynamic Programming
 
+__Reference: Stanford CS 97SI__
+
+> 1. Three steps: 
+>
+>    1. define subproblem
+>
+>    2. find the recurrence that relates subproblems
+>
+>    3. solve the base cases
+>
+>       DP solve (overlapped) subproblems only once and solve the solutions of these subproblems for later usage.
+
+```c++
+1-dimension DP Example
+Problem: given n, find the number of different ways to write n as the sum of 1, 3, 4
+
+Subproblem: D_n be the number of ways to write n as the sum of 1, 3, 4
+recurrence relation: D_n = D_{n-1} + D_{n-3} + D_{n-4}
+```
+
+```
+2-dimension DP Example
+Problem: given two strings x and y, find the longest common subsequence (LCS)
+
+Subproblem: Let D_{ij} be the length of the LCS of x_{1,...,i} and y_{1,...,j}
+```
+
+```
+Interval DP Example
+Problem: given a string x = x_{1,...,n}, find the minimum number of characters that need to be inserted to make it a palindrome
+
+Subproblem: 
+```
+
+```
+Tree DP Example
+Problem: given a tree, color nodes black as many as possible without coloring two adjacent nodes
+
+Subproblem: for root node r -->  B_r: the optimal solution for a subtree having r as the root, where r is colored; W_r: the optimal solution for a subtree haveing r as the root, where r is not colored.
+```
+
+
+
+#### Problems:
+
+* _Burning Coins from Two Sides(week 5)_: Interval DP. 
+
+  * f(i,j) := max sum from i to j
+
+  * if(j-i) >= 2: f(i,j) = max{(V[i] + min{f(i+2, j), f(i+i, j-1)} ), (V[j] + min{f(i+1, j-1), f(i, j-2)} ) }
+
+    if(j-i) == 1: f(i,j) = max{V[i], V[j]}
+
+    if(j-i) == 0: f(i,j) = V[i]
+
 ## Binary Search
 
 > Goal: find the smallest k that is ‘large enough’.
