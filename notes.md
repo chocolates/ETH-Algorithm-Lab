@@ -27,6 +27,7 @@ L = lmin;
 #### problems:
 
 * _Evoluation(week2)_
+* _TheeV(week 4)_: sorted cities with ascending distance to the first TV transmitter. Binary search the position with splits cities into two parts.
 
 
 
@@ -49,6 +50,7 @@ L = lmin;
 * _Moving books(week 2)_: Sort books and people by its weight and strength. Iterate each book and allocate it to suitable people.
 * _Octopussy(week2)_: Iterate each (leaves) balls one-by-one. Use a priority queue for help.
 * _Hiking maps(week 3)_
+* _Attack of the Clones(week 3)_: Iterate beginning points and ending points to find the segment protected by less 10 Jedi.
 
 
 
@@ -72,6 +74,7 @@ L = lmin;
 #### problems:
 
 * _Boats(week 2)_:  Ground set: boats. Greedy choice: choose the next boat whose end point is minimal.
+* _Attack of the Clones(week 3)_
 
 ## Brute Force / Split and List
 
@@ -87,9 +90,17 @@ L = lmin;
 
 ```
 double could store 53-bit integer(without +-*/); and 25-bit integer for + - *
+32bit integer reads as int, 64bit integer reads as long
 ```
 
 > (1) K::Point_2; K::FT; std::setiosflags(std::ios::fixed); std::setprecision(2); point.x(); point.y(); (2) return type of intersection; (3) bounding volumes [slide 3]
+
+``` bash
+CGAL usage
+cgal_create_cmake_script
+cmake .
+make
+```
 
 
 
@@ -98,6 +109,8 @@ double could store 53-bit integer(without +-*/); and 25-bit integer for + - *
 * _Hit(week 3)_: use _long_ to save the 51-bits integers
 * _First hit(week3)_: try to avoid constructions and use ```std::random_shuffle()``` 
 * _Hiking maps(week 3)_: together with sliding window.
+* _Antenna(week 3)_: minimum enclosing circle
+* _TheeV(week 4)_: call minimum enclosing circle
 
 ## LP/QP
 
@@ -147,11 +160,39 @@ void dfs(int v) {
 }
 ```
 
-
-
 #### problems:
 
 * _Evolution(week 2)_
+* _Odd Route(week 10)_: what are the nodes (abstract states)?
+
+
+
+> 2. Basic Graph Algorithms
+>    - Distance: Dijkstra shortest paths, Prim minimum spanning tree, Kruskal minimum spanning tree.
+>    - Components: Connected, biconnected, strongly connected components
+>    - Matchings: General unweighted matching
+>    - Others: topological sorting; Eulerian tours; Union-Find (e.g. _GoldenEye_).
+> 3. Dijkstra shortest path __complexity__: ```O(V*logV + E)```, Dijkstra's algorithm finds all the shortest paths from the __source vertex__ to __every other vertex__.
+> 4. Strongly connected components complexity: ```O(v+E)```. 
+> 5. Biconnected subgraph: the biconnected components of a graph are the maximal subsets of vertices such that the __removal of a vertex__ from a particular component __will not__ disconnect the component. Complexity ```O(V+E)```
+> 6. Prim MST: add the closest undiscovered neighbor of all discovered neighbors; Kruskal MST: add the next shortest edge without creating a cycle 
+> 7. BGL __does not__ provide weighted matching algorithms.
+
+```c++
+Union-Find in C++
+#include <boost/pending/disjoint_sets.hpp>
+typedef boost::disjoint_sets_with_storage<> Uf;
+Uf ufa(num_elements);
+ufa.find_set(i) // return the representation of i
+ufa.union_set(i, j) // merge 
+```
+
+#### problems:
+
+* _GoldenEye(week 12)_: 
+* _Ant Challenge(week 4)_: 
+* _Important Bridges(week 4)_: biconnected connected graph
+* _Buddy Selection(week 4)_: maximum matching on unweighted graph.
 
 ## Extra
 
