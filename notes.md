@@ -297,15 +297,17 @@ ufa.union_set(i, j) // merge
 
 > Common tricks:
 >
-> 1. ​
+> 1. With edge capacity set to 1, the maximum number of edge-disjoint s-t-paths is equal to the maximum flow from s to t.
+> 2. Max flow with lower bound on edge: .
 
 #### Problems:
 
 * _On her Majestry's Secret Service (week 5)_: for the given time T, we can determine (by max flow) whether all agent could to go shelters safely! So we use the __binary search__ to find the optimal time T.
 * _Coin Tossing Tournament(week 6)_: In this problem, we try different decisons on the unknown turns. The final goal is to whether we could fill all the sinks. This could be turned to a flow problem and the maximum flow algorithm automatically finds the best decision.
   * maybe thought in this way: max flow corresponds to the particular strategy that is optimal; flow_2 corresponds to strategy_2; flow_3 corresponds to strategy3...
-* _Shopping Trip (week 6)_: 
-* Cantonal Courier_
+* _Shopping Trip (week 6)_: edge-disjoint s-t-paths <==> max flow from s to t
+* ___Kingdom Defence(week 6)___: max flow with __lower bound__. 
+* _Cantonal Courier_
 * _Car Sharing()_ 
 
 ## Extra
