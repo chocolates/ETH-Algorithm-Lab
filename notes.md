@@ -4,17 +4,17 @@
 
 ## Dynamic Programming
 
-__Reference: Stanford CS 97SI__
+__Reference: Slide of Stanford CS 97SI__
 
 > 1. Three steps: 
 >
->    1. define subproblem
+>    1. define __subproblem__ [Important]
 >
->    2. find the recurrence that relates subproblems
+>    2. find the __recurrence__ that relates subproblems
 >
->    3. solve the base cases
+>    3. solve the __base cases__
 >
->       DP solve (overlapped) subproblems only once and solve the solutions of these subproblems for later usage.
+>       DP solve (overlapped) subproblems only once and save the solutions of these subproblems for later usage.
 
 ```c++
 1-dimension DP Example
@@ -45,19 +45,43 @@ Problem: given a tree, color nodes black as many as possible without coloring tw
 Subproblem: for root node r -->  B_r: the optimal solution for a subtree having r as the root, where r is colored; W_r: the optimal solution for a subtree haveing r as the root, where r is not colored.
 ```
 
+```
+Subset DP Example
+Problem: given a weighted graph with n nodes, find the shortest path that visits every node exactly once
+
+Subproblem: D_{S,v}: the length of optimal path that visits every node in the set S exactly once and end in v.
+Recurrence: D_{S,v} = min_{u} (D_{S-{v},u} + cost(u,v))
+```
+
 
 
 #### Problems:
 
 * _Burning Coins from Two Sides(week 5)_: Interval DP. 
 
-  * f(i,j) := max sum from i to j
+  * f(i,j) := max award from i to j
 
   * if(j-i) >= 2: f(i,j) = max{(V[i] + min{f(i+2, j), f(i+i, j-1)} ), (V[j] + min{f(i+1, j-1), f(i, j-2)} ) }
 
     if(j-i) == 1: f(i,j) = max{V[i], V[j]}
 
     if(j-i) == 0: f(i,j) = V[i]
+
+* _Light Pattern(week 5)_: 1-dimension DP
+
+  * f_0(i) := minimum operations to make first i groups same with given pattern
+  * f_1(i) := minimum operations to make first i groups totally different with given pattern
+
+* _The Great Game(week 5)_: 1-dimension DP
+
+  * M0(i) := shortest steps from i'th transition entry to destination
+  * M1(i) := longest steps from i'th transition engty to destination
+
+* _Punch(week 11)_: 2-dimension DP
+
+* _Poker Chips(week 5)_: 5-dimension DP. Complexity: complete the state matrix requires DOT(mi + 1) <= 2^16; and in order to complete each element in the state matrix, we need iterate 2^5 different choices and find the optmal one.
+
+
 
 ## Binary Search
 
@@ -133,7 +157,17 @@ L = lmin;
 
 ## Brute Force / Split and List
 
+> Example problem: Is there a subset of S which sums to k? (if k is small, it could be solved by DP withO(n*k) ). 
+>
+> Search all possible strategies: in each strategy, we make a decision for each item that whether or not to take this item. ==> n is small O(n*2^(n/2)), n<=40.
+>
+> Methods: __Backtracking__ V.S. __Representing set as bits__ [Slide 5]
 
+
+
+#### Problems:
+
+* _Light at the Museum(week 5)_: Similar to the example problem, but need to check __M constraints__. 
 
 ## CGAL - Intro
 
@@ -248,6 +282,26 @@ ufa.union_set(i, j) // merge
 * _Ant Challenge(week 4)_: 
 * _Important Bridges(week 4)_: biconnected connected graph
 * _Buddy Selection(week 4)_: maximum matching on unweighted graph.
+
+
+
+## Max Flow / Max Flow Min Cost
+
+> The MaxFlow (MinCost) problem
+>
+> - some quantities are reserved in some sources. These quantities want to go to the sinks.
+> - edge (u, v): the quantity can go from u (abstract state) to v (abstract state)
+> - different decisions <==> different path for the quantities. In more details, in most cases, we have decision variables and the objective function. What we want to do is to choose the particular decision that make objective function optimal. When we change decisions, we change the network structure for the flow (e.g. _On Her Majesty's Secret Service_) or change the capacity of edges. This results in different flow!
+> - final distribution of quantities &/ distribution of flow is related with the objective function
+> - max flow algorithm  => choose the routes that maximize flow (min cost) ==> this should correspond to the optimal decision.
+
+
+
+#### Problems:
+
+* _On her Majestry's Secret Service (week 5)_: for the given time T, we can determine (by max flow) whether all agent could to go shelters safely! So we use the __binary search__ to find the optimal time T.
+* _Cantonal Courier_
+* _Car Sharing()_ 
 
 ## Extra
 
