@@ -81,6 +81,8 @@ Recurrence: D_{S,v} = min_{u} (D_{S-{v},u} + cost(u,v))
 
 * _Poker Chips(week 5)_: 5-dimension DP. Complexity: complete the state matrix requires DOT(mi + 1) <= 2^16; and in order to complete each element in the state matrix, we need iterate 2^5 different choices and find the optmal one.
 
+* _A New Hope(week 6)_: Tree DP. 
+
 
 
 ## Binary Search
@@ -302,7 +304,7 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
 > Common tricks:
 >
 > 1. __Vertex capacity__: break this vertex v to two vertex v1 and v2, all in edges connected to v1 and all out edges linked on v2 and there is a edge from v1 to v2 with unlimit capacity.
-> 2. __Minimum flow per edge__: see the solution of [Kingdom Defence](https://moodle-app2.let.ethz.ch/pluginfile.php/345451/mod_resource/content/1/solution-kingdomdefence.pdf).
+> 2. __Minimum flow per edge__: see the [solution of Kingdom Defence](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-kingdomdefence.pdf).
 > 3. With edge capacity set to 1, the maximum number of __edge-disjoint s-t-paths__ is equal to the maximum flow from s to t.
 
 #### Problems:
@@ -327,7 +329,7 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
 
 
 
-[I'm an inline-style link](https://www.google.com)
+
 
 ---
 **NOTE**
