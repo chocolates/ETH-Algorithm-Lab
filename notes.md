@@ -217,11 +217,9 @@ make
 
 ```c++
 choice of exact internal number type
-#include <CGAL/Gmpz.h> : 
-#include <CGAL/Gmpzf.h>
+#include <CGAL/Gmpz.h> : for integer 
+#include <CGAL/Gmpzf.h>: for float number
 ```
-
-
 
 
 
@@ -230,6 +228,9 @@ choice of exact internal number type
 * _Diet(week 7)_: linear programming
 * _Portfolios(week 7)_: similar to the example on slide, but add an addition constraint.
 * _Inball(week 7)_: LP. [Solution here](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-inball.pdf).
+* _Stamp Exhibition(week 8)_: use Gmpzf. There are 200 variables.
+
+
 
 ## Delaunay Triangulation
 
@@ -252,17 +253,20 @@ DT Examplary Calls 1
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef CGAL::Delaunay_triangulation_2<K> Triangulation;
 typedef Triangulation::Finite_faces_iterator Face_iterator;
+typedef Triangulation::Finite_vertices_iterator Vertex_iterator;
 
 Triangulation t;
 t.insert(pts.begin(), pts.end());
 t.nearest_vertex(K::Point_2 p);
 
+// iterate all faces
 for(Face_iterator f=t.finite_faces_begin(); f != t.finite_faces_end(); f++){
   K::Point_2 p = t.dual(f); // the center of the circle of face f
   Triangulation::Vertex_handle v1 = f -> vertex(1); // the vertex
   Triangulatoin::Face_handle f_neighbor = f -> neighbor(1); // the neighbor face
 }
 
+// iterate all edges connected to node v
 Triangulation::Vertex_handle v;
 Triangulation::Edge_circulator c = t.incident_edges(v);
 do {
@@ -270,6 +274,26 @@ do {
     ...
   }
 }while (++c != t.incident_edges(v));
+
+// find the nearest neighbor distance for each vertex
+for(Vertex_iterator v = t.finite_vertices_begin(); v != t.finite_vertices_end(); v++){
+  Triangulation::Edge_circulator edge = t.incident_edges(v);
+  do{
+	if( ! t.is_infinite(edge)){
+	    K::Segment_2 seg = t.segment(edge);
+	    K::FT dist = seg.squared_length();
+	    K::FT squared_radio = dist / 4;
+	    if(count_edges==0){
+	        nearest_distance_square = squared_radio;
+	        count_edges = 1;
+	    }
+	    else{
+	        if( squared_radio < nearest_distance_square )
+	            nearest_distance_square = squared_radio;
+	    }
+	}
+ } while(++edge != t.incident_edges(v));
+}
 ```
 
 
@@ -277,14 +301,17 @@ do {
 reference: [CGAL doc 2D triangulation with vertex information](https://judge.inf.ethz.ch/doc/cgal/doc_html/Triangulation_2/Triangulation_2_2info_insert_with_pair_iterator_2_8cpp-example.html#_a1)
 
 ```c++
-DT Example Calls 2 (with info()) 
+DT Example Calls 2 (with info())
+  
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
 #include <CGAL/Triangulation_vertex_base_with_info_2.h>
+#include <CGAL/Triangulation_face_base_with_info_2.h>
 
 typedef CGAL::Exact_predicates_inexact_constructions_kernel         K;
 typedef CGAL::Triangulation_vertex_base_with_info_2<int, K>    Vb;
-typedef CGAL::Triangulation_data_structure_2<Vb>                    Tds;
+typedef CGAL::Triangulation_face_base_with_info_2<int, K>      Fb;
+typedef CGAL::Triangulation_data_structure_2<Vb, Fb>                    Tds;
 typedef CGAL::Delaunay_triangulation_2<K, Tds>                      Delaunay;
 typedef Delaunay::Finite_edges_iterator							Edge_iterator;
 typedef Delaunay::Finite_faces_iterator 						Face_iterator;
@@ -314,6 +341,9 @@ for(Edge_iterator e=t.finite_edges_begin(); e != t.finite_edges_end(); e++){
 #### Problems:
 
 * _Graypes(week 8)_: DT contains __nearest neighbor graph__.
+* _Bistro(week 8)_: __nearest neighbour__
+* ___H1N1(week 8)___: moving the disk without colliding with a given point set P. __DT + BFS__ but check the distance between user and its nearest neighbor at beginning.
+* _Germs(week 8)_: nearest neighbor graph + sort/binary search
 * _Revenge of the Sith(week 10)_: 
 
 ## BGL
@@ -427,10 +457,46 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
 
 * `odd - odd = even` , `even - even = even`
   - _even pairs(week 1)_ , _even matrices(week 1)_ , 
+
 * others
   - _False Coin(week 1)_ : 
+
   - __Union-Find__ data structure. Methoded in lecture2 MST
+
+    ```c++
+    #include <boost/pending/disjoint_sets.hpp>
+    typedef boost::disjoint_sets_with_storage<> Uf;
+    Uf ufa(num_elements);
+    ufa.find_set(i) //
+    ufa.union_set(i, j)
+    ```
+
+    ​
+
+
   - Answer queries __on the fly__! See _Evoluation(week 2)_ 
 
+* c++ MISC.
 
+  ``` c++
+  typedef struct{
+    int len;
+    int ring_position;
+  } boat;
+  boat boat_variable; // 
+  ```
+
+  ​
+
+
+
+
+
+---
+
+__Problems to revisit__
+
+* _H1N1_ : add vertex information and face information 
+
+---
 
