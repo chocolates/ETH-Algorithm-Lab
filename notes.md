@@ -174,8 +174,8 @@ L = lmin;
 > Combinatorial Algorithm <— Geometric Predicate <— Algebraic Computation
 >
 > 1.  algebraic computation is non-trivial 
-> 2. Filtering to ganrantee correctness: Check whether things go fine and use exact algebra only 		when needed
-> 3. Exact construction is very expensive ==> If possible, use predicates with numerical tests decide branching instead of exact construction
+>     2. Filtering to ganrantee correctness: Check whether things go fine and use exact algebra only 	when needed
+> 2.  Exact construction is very expensive ==> If possible, use predicates with numerical tests decide branching instead of exact construction
 
 ```
 double could store 53-bit integer(without +-*/); and 25-bit integer for + - *
@@ -295,17 +295,22 @@ ufa.union_set(i, j) // merge
 > - final distribution of quantities &/ distribution of flow is related with the objective function
 > - max flow algorithm  => choose the routes that maximize flow (min cost) ==> this should correspond to the optimal decision.
 
+```
+Push Relabel is almost always the best choice in BGL. O(n^3)
+```
+
 > Common tricks:
 >
-> 1. With edge capacity set to 1, the maximum number of edge-disjoint s-t-paths is equal to the maximum flow from s to t.
-> 2. Max flow with lower bound on edge: .
+> 1. __Vertex capacity__: break this vertex v to two vertex v1 and v2, all in edges connected to v1 and all out edges linked on v2 and there is a edge from v1 to v2 with unlimit capacity.
+> 2. __Minimum flow per edge__: see the solution of [Kingdom Defence](https://moodle-app2.let.ethz.ch/pluginfile.php/345451/mod_resource/content/1/solution-kingdomdefence.pdf).
+> 3. With edge capacity set to 1, the maximum number of __edge-disjoint s-t-paths__ is equal to the maximum flow from s to t.
 
 #### Problems:
 
 * _On her Majestry's Secret Service (week 5)_: for the given time T, we can determine (by max flow) whether all agent could to go shelters safely! So we use the __binary search__ to find the optimal time T.
 * _Coin Tossing Tournament(week 6)_: In this problem, we try different decisons on the unknown turns. The final goal is to whether we could fill all the sinks. This could be turned to a flow problem and the maximum flow algorithm automatically finds the best decision.
   * maybe thought in this way: max flow corresponds to the particular strategy that is optimal; flow_2 corresponds to strategy_2; flow_3 corresponds to strategy3...
-* _Shopping Trip (week 6)_: edge-disjoint s-t-paths <==> max flow from s to t
+* _Shopping Trip (week 6)_: __edge-disjoint s-t-paths__ <==> max flow from s to t
 * ___Kingdom Defence(week 6)___: max flow with __lower bound__. 
 * _Cantonal Courier_
 * _Car Sharing()_ 
