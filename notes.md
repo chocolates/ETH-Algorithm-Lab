@@ -229,10 +229,31 @@ choice of exact internal number type
 
 * _Diet(week 7)_: linear programming
 * _Portfolios(week 7)_: similar to the example on slide, but add an addition constraint.
+* _Inball(week 7)_: LP. [Solution here](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-inball.pdf).
 
 ## Delaunay Triangulation
 
+> An __empty disk of maximal radius__ passes through three points, if its center is inside the convex hull. These __maximal empty disks__ collectively define what is called the __Delaunay Triangulation__.
+>
+> Properties of DT:
+>
+> 	1. It maximizes the smallest angle.
+> 	2. It contains __Euclidean Minimum Spanning Tree__.  ==> related with the connection problems.
+> 	3. It contains __nearest neighbor graph__. (The edge between each node to its nearest neighbor is in DT)
+> 	4. It is unique in general.
+> 	5. It could be construct efficiently! __O(n*logn)__ in 2D. ==> when we want to change time complexity from n^2 to nlogn
 
+```c++
+DT Example Programs
+```
+
+
+
+
+
+#### Problems:
+
+* _Graypes(week 8)_: DT contains __nearest neighbor graph__.
 
 ## BGL
 
@@ -337,6 +358,7 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
   * maybe thought in this way: max flow corresponds to the particular strategy that is optimal; flow_2 corresponds to strategy_2; flow_3 corresponds to strategy3...
 * _Shopping Trip (week 6)_: __edge-disjoint s-t-paths__ <==> max flow from s to t
 * ___Kingdom Defence(week 6)___: max flow with __lower bound__. 
+* _Knights(week 7)_: max flow with __vertex capacity__: split each vertex to two vertices
 * _Cantonal Courier_
 * _Car Sharing()_ 
 
