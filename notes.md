@@ -205,7 +205,30 @@ make
 
 ## LP/QP
 
+> Linear optimization: Optimal solution, Unbounded, Infeasible
+>
+> LP ex1: cancer therapy -> lifting space
+>
+> LP ex2: seperated by polynomial of d?
+>
+> QP: matrix D sould be positive semidefinite
+>
+> QP: solving nonnegative quadratic program is faster
 
+```c++
+choice of exact internal number type
+#include <CGAL/Gmpz.h> : 
+#include <CGAL/Gmpzf.h>
+```
+
+
+
+
+
+#### Problems:
+
+* _Diet(week 7)_: linear programming
+* _Portfolios(week 7)_: similar to the example on slide, but add an addition constraint.
 
 ## Delaunay Triangulation
 
