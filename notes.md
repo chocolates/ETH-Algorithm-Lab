@@ -440,7 +440,24 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
 >
 > 1. __Vertex capacity__: break this vertex v to two vertex v1 and v2, all in edges connected to v1 and all out edges linked on v2 and there is a edge from v1 to v2 with unlimit capacity.
 > 2. __Minimum flow per edge__: see the [solution of Kingdom Defence](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-kingdomdefence.pdf).
-> 3. With edge capacity set to 1, the maximum number of __edge-disjoint s-t-paths__ is equal to the maximum flow from s to t.
+> 3. With edge capacity set to 1, the maximum number of __edge-disjoint s-t-paths__ is equal to the maximum flow from s to t. And these three quantities are equal:
+>    1. the minimum number of edges separating u and v
+>    2. the maximum number of edge-disjoint u-v paths // 1=2 is the Corollary of Menger's Theorem
+>    3. the maximum flow from u to v
+>    4. the minimum cut between u and v (if edge capacity is set to 1's)
+
+
+
+---
+
+__Problems related with flow__
+
+* ___Max Flow Min Cut Theorem___: maximum amount of flow passing from the source to the sink is equal to the total weight of the edges in the minimum cut, i.e. the smallest total weight of the edges which if removed would disconnect the source from the sink.
+  * Finding the cut: BFS on the residual graph starting at source.
+* ___Menger's Theorem___ : The maximum number of __vertex-disjoint S-T paths__ is equal to the minimum size of __S-T separating vertex set__.
+* ___Minimum Vertex Cover___ and ___Maximum Independent Set___ are complementary. They are NP - complement in general graph. But, in bipartite graph, according to ___König Theorem___, the number of edges in a maximum matching is equal to the number of vertices in a minimum vertex cover (= n - size of maximum independent set).
+
+---
 
 #### Problems:
 
