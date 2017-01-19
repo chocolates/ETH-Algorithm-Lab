@@ -242,9 +242,69 @@ choice of exact internal number type
 > 	3. It contains __nearest neighbor graph__. (The edge between each node to its nearest neighbor is in DT)
 > 	4. It is unique in general.
 > 	5. It could be construct efficiently! __O(n*logn)__ in 2D. ==> when we want to change time complexity from n^2 to nlogn
+> 	6. Delaunay Triangulation v.s. Voronoi-Diagram.  ==> ```t.nearest_vertex()```
+
+
 
 ```c++
-DT Example Programs
+DT Examplary Calls 1
+  
+typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
+typedef CGAL::Delaunay_triangulation_2<K> Triangulation;
+typedef Triangulation::Finite_faces_iterator Face_iterator;
+
+Triangulation t;
+t.insert(pts.begin(), pts.end());
+t.nearest_vertex(K::Point_2 p);
+
+for(Face_iterator f=t.finite_faces_begin(); f != t.finite_faces_end(); f++){
+  K::Point_2 p = t.dual(f); // the center of the circle of face f
+  Triangulation::Vertex_handle v1 = f -> vertex(1); // the vertex
+  Triangulatoin::Face_handle f_neighbor = f -> neighbor(1); // the neighbor face
+}
+
+Triangulation::Vertex_handle v;
+Triangulation::Edge_circulator c = t.incident_edges(v);
+do {
+  if (t.is_infinite(c)){
+    ...
+  }
+}while (++c != t.incident_edges(v));
+```
+
+
+
+reference: [CGAL doc 2D triangulation with vertex information](https://judge.inf.ethz.ch/doc/cgal/doc_html/Triangulation_2/Triangulation_2_2info_insert_with_pair_iterator_2_8cpp-example.html#_a1)
+
+```c++
+DT Example Calls 2 (with info()) 
+#include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
+#include <CGAL/Delaunay_triangulation_2.h>
+#include <CGAL/Triangulation_vertex_base_with_info_2.h>
+
+typedef CGAL::Exact_predicates_inexact_constructions_kernel         K;
+typedef CGAL::Triangulation_vertex_base_with_info_2<int, K>    Vb;
+typedef CGAL::Triangulation_data_structure_2<Vb>                    Tds;
+typedef CGAL::Delaunay_triangulation_2<K, Tds>                      Delaunay;
+typedef Delaunay::Finite_edges_iterator							Edge_iterator;
+typedef Delaunay::Finite_faces_iterator 						Face_iterator;
+typedef Delaunay::Vertex_handle									Vh;
+
+Delaunay t;
+vector<std::pair<K::Point_2, int> > planets_pos(n);
+for(int i=0; i<n; i++){
+		K::Point_2 p;
+		cin >> p;
+		planets_pos[i] = make_pair(p, i);
+	}
+t.insert(planets_pos.begin(), planets_pos.end());
+for(Edge_iterator e=t.finite_edges_begin(); e != t.finite_edges_end(); e++){
+  Vh v1 = e -> first -> vertex((e -> second + 1) % 3);
+  Vh v2 = e -> first -> vertex((e -> second + 2) % 3);
+  int id1 = v1 -> info();
+  int id2 = v2 -> info();
+  double squared_dist = CGAL::to_double(CGAL::squared_distance(v1 -> point(), v2 -> point()));
+}
 ```
 
 
@@ -254,6 +314,7 @@ DT Example Programs
 #### Problems:
 
 * _Graypes(week 8)_: DT contains __nearest neighbor graph__.
+* _Revenge of the Sith(week 10)_: 
 
 ## BGL
 
@@ -372,14 +433,4 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
   - Answer queries __on the fly__! See _Evoluation(week 2)_ 
 
 
-
-
-
-
----
-**NOTE**
-
-It works with almost all markdown flavours (the below blank line matters).
-
----
 
