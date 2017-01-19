@@ -459,7 +459,6 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
 * _Canteen(week 9)_: Max Flow Min Cost, still make all costs on edges nonnegative. __Shift the cost of each edge in such a way that each s-t-path gets shifted by the same total amount__ 
 
 
-
 ---
 
 __Problems related with flow__
@@ -467,7 +466,7 @@ __Problems related with flow__
 * ___Max Flow Min Cut Theorem___: maximum amount of flow passing from the source to the sink is equal to the total weight of the edges in the minimum cut, i.e. the smallest total weight of the edges which if removed would disconnect the source from the sink.
   * Finding the cut: BFS on the residual graph starting at source.
 * ___Menger's Theorem___ : The maximum number of __vertex-disjoint S-T paths__ is equal to the minimum size of __S-T separating vertex set__.
-* ___Minimum Vertex Cover___ and ___Maximum Independent Set___ are complementary. They are NP - complement in general graph. But, in __bipartite graph__, according to ___König Theorem___, the number of edges in a maximum matching is equal to the number of vertices in a minimum vertex cover (= n - size of maximum independent set). In other special cases, may be trivial (greedy method is ok)
+* ___Minimum Vertex Cover___ and ___Maximum Independent Set___ are complementary. They are NP - complement in general graph. But, in __bipartite graph__, according to ___König Theorem___, the number of edges in a maximum matching is equal to the number of vertices in a minimum vertex cover (= n - size of maximum independent set). In __other special cases__, may be trivial (greedy method is ok)
 
 ---
 
@@ -480,7 +479,7 @@ __Problems related with flow__
 * ___Kingdom Defence(week 6)___: max flow with __lower bound__. 
 * _Knights(week 7)_: max flow with __vertex capacity__: split each vertex to two vertices
 * _Casino Royale (week 9)_: Similar to Car Sharing problem. __Lots of binary variable (choices), which corresponds to different paths for the flow!__ 
-* _First problem in Winter Games_. Find (greedy method) the maximum independent points in a graph with max degree no more than 2.
+* _First problem in Winter Games_. Find (greedy method) the __maximum independent set__ in a graph with __max degree no more than 2__.
 * _Cantonal Courier_
 * _Car Sharing(week 11)_ 
 
@@ -505,7 +504,7 @@ __Problems related with flow__
     ​
 
 
-  - Answer queries __on the fly__! See _Evoluation(week 2)_ 
+- Answer queries __on the fly__! See _Evoluation(week 2)_ 
 
 * c++ MISC.
 
@@ -530,7 +529,6 @@ __Problems related with flow__
     * construct DT
     * iterate each edge on the DT and mark those whose distance is <= delta. Construct a graph using these marked edges
     * Start on each point on the constructed graph, do a DFS and stop each branch of the search at the first point q such that |p-q|>delta.
-
 
 
 ---
