@@ -445,6 +445,17 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
 >    2. the maximum number of edge-disjoint u-v paths // 1=2 is the Corollary of Menger's Theorem
 >    3. the maximum flow from u to v
 >    4. the minimum cut between u and v (if edge capacity is set to 1's)
+> 4. For the MaxFlowMinCost problem, we tend to make the costs negative to speed up the programm (pass test data!). Because successive_shortest_path_nonnegative_weights() is faster than cycle_canceling(). A common trick is to [shift the cost of each edge in such a way that each s-t-path gets shifted by the same total amount](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/carsharing-solution.pdf). 
+
+#### Problems:
+
+* _Real Estate Market(week 9)_: Max Flow Min Cost. Make the costs nonnegative.
+* _Satellites(week 9)_: Minimum vertex cover on bipartite graph. -> max flow then BFS.
+* _Algocoon Group(week 9)_: Global [Min-Cut](http://theory.stanford.edu/~trevisan/cs261/lecture13.pdf). Following steps:
+  * choose an arbitrary vertex s in V
+  * for each t \in V - {v}, compute the minimum s-t cut
+  * return the minimum one among all s-t minimum cut.
+* _Canteen(week 9)_: Max Flow Min Cost, still make all costs on edges nonnegative. __Shift the cost of each edge in such a way that each s-t-path gets shifted by the same total amount__ 
 
 
 
@@ -467,8 +478,9 @@ __Problems related with flow__
 * _Shopping Trip (week 6)_: __edge-disjoint s-t-paths__ <==> max flow from s to t
 * ___Kingdom Defence(week 6)___: max flow with __lower bound__. 
 * _Knights(week 7)_: max flow with __vertex capacity__: split each vertex to two vertices
+* _Casino Royale (week 9)_: Similar to Car Sharing problem. __Lots of binary variable (choices), which corresponds to different paths for the flow!__ 
 * _Cantonal Courier_
-* _Car Sharing()_ 
+* _Car Sharing(week 11)_ 
 
 ## Extra
 
