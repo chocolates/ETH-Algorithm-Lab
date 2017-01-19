@@ -241,9 +241,10 @@ choice of exact internal number type
 > 	1. It maximizes the smallest angle.
 > 	2. It contains __Euclidean Minimum Spanning Tree__.  ==> related with the connection problems.
 > 	3. It contains __nearest neighbor graph__. (The edge between each node to its nearest neighbor is in DT)
-> 	4. It is unique in general.
-> 	5. It could be construct efficiently! __O(n*logn)__ in 2D. ==> when we want to change time complexity from n^2 to nlogn
-> 	6. Delaunay Triangulation v.s. Voronoi-Diagram.  ==> ```t.nearest_vertex()```
+> 	4. For the __second nearest neighbor__: let v1 be the nearest neighbor of v and v2 be the second nearest neighbor of v. Then at least one of edge (v,v2) or edge(v1, v2) is in DT.
+> 	5. It is unique in general.
+> 	6. It could be construct efficiently! __O(n*logn)__ in 2D. ==> when we want to change time complexity from n^2 to nlogn
+> 	7. Delaunay Triangulation v.s. Voronoi-Diagram.  ==> ```t.nearest_vertex()```
 
 
 
@@ -466,7 +467,7 @@ __Problems related with flow__
 * ___Max Flow Min Cut Theorem___: maximum amount of flow passing from the source to the sink is equal to the total weight of the edges in the minimum cut, i.e. the smallest total weight of the edges which if removed would disconnect the source from the sink.
   * Finding the cut: BFS on the residual graph starting at source.
 * ___Menger's Theorem___ : The maximum number of __vertex-disjoint S-T paths__ is equal to the minimum size of __S-T separating vertex set__.
-* ___Minimum Vertex Cover___ and ___Maximum Independent Set___ are complementary. They are NP - complement in general graph. But, in bipartite graph, according to ___König Theorem___, the number of edges in a maximum matching is equal to the number of vertices in a minimum vertex cover (= n - size of maximum independent set).
+* ___Minimum Vertex Cover___ and ___Maximum Independent Set___ are complementary. They are NP - complement in general graph. But, in __bipartite graph__, according to ___König Theorem___, the number of edges in a maximum matching is equal to the number of vertices in a minimum vertex cover (= n - size of maximum independent set). In other special cases, may be trivial (greedy method is ok)
 
 ---
 
@@ -479,6 +480,7 @@ __Problems related with flow__
 * ___Kingdom Defence(week 6)___: max flow with __lower bound__. 
 * _Knights(week 7)_: max flow with __vertex capacity__: split each vertex to two vertices
 * _Casino Royale (week 9)_: Similar to Car Sharing problem. __Lots of binary variable (choices), which corresponds to different paths for the flow!__ 
+* _First problem in Winter Games_. Find (greedy method) the maximum independent points in a graph with max degree no more than 2.
 * _Cantonal Courier_
 * _Car Sharing(week 11)_ 
 
@@ -515,9 +517,19 @@ __Problems related with flow__
   boat boat_variable; // 
   ```
 
-  ​
+* Both the material from tutorial and the collection of problems form this course. Solving a problem in following way:
 
+  * understand the task (key concept, data structure, techniques and skills are covered in the tutorial and/or practiced in a problem. E.g. Union-Find) Could check the examples to see if they concur with your understanding.
+  * find an appropriate model (__modelling__)
+  * design efficient algorithm (__algorithm design__)
+  * Avoid "stupid" mistakes (e.g. read all inputs; std::ios_base::sync_with_stdio(false); )
 
+* DT others
+
+  * Problem: given a finite discrete data set and a distance delta, find all pairs of points (p, q) with distance |p-q| < = delta. 
+    * construct DT
+    * iterate each edge on the DT and mark those whose distance is <= delta. Construct a graph using these marked edges
+    * Start on each point on the constructed graph, do a DFS and stop each branch of the search at the first point q such that |p-q|>delta.
 
 
 
