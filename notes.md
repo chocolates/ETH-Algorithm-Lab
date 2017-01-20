@@ -374,6 +374,7 @@ for(Edge_iterator e=t.finite_edges_begin(); e != t.finite_edges_end(); e++){
 * _Germs(week 8)_: nearest neighbor graph + sort/binary search
 * _Light the Stage(week 10)_: Use DT for the first test case. For the second test case, just try the trivial method.
 * _Revenge of the Sith(week 10)_: It uses the property that __DT contains the EMST__. __Given the distance threshold, two nodes are connected on the EMST of G <==> these two nodes are connected on G__. 
+* _[Clues(week 11)](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-clues.pdf)_: Connected components —> for the given distance threshold, EMST and original graph is equal w.r.t connectivity. Furthermore, it checks whether the graph is two colorable.
 
 ## BGL
 
@@ -489,6 +490,8 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
   * for each t \in V - {v}, compute the minimum s-t cut
   * return the minimum one among all s-t minimum cut.
 * _Canteen(week 9)_: Max Flow Min Cost, still make all costs on edges nonnegative. __Shift the cost of each edge in such a way that each s-t-path gets shifted by the same total amount__ 
+* _Consecutive Construction (week 11)_: 
+* _Missing Roads(week 11)_: Different flow corresponds to different choice (strategy). The Max Flow should correspond to the optimal strategy. In other words, the set of all possible flows and the set of all strategies should have one-to-one map. 
 
 
 ---
