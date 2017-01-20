@@ -4,7 +4,7 @@
 
 ## Dynamic Programming
 
-__Reference: Slide of Stanford CS 97SI__
+__Reference: [Slide of Stanford CS 97SI](https://web.stanford.edu/class/cs97si/)__
 
 > 1. Three steps: 
 >
@@ -46,6 +46,11 @@ Subproblem: for root node r -->  B_r: the optimal solution for a subtree having 
 ```
 
 ```
+Graph DP Example
+Problem: Odd Route in Week 10
+```
+
+```
 Subset DP Example
 Problem: given a weighted graph with n nodes, find the shortest path that visits every node exactly once
 
@@ -83,6 +88,12 @@ Recurrence: D_{S,v} = min_{u} (D_{S-{v},u} + cost(u,v))
 
 * _A New Hope(week 6)_: Tree DP. 
 
+* _Odd Route(week 10)_: could be considered as Graph DP
+
+* _Bonus Level(week 10):_ 2-Dimension DP, but with two players. 
+
+* _Connecting Cities(week 11)_: Tree DP, __find the maximum matching__ on a tree in O(n).
+
 
 
 ## Binary Search
@@ -96,7 +107,7 @@ Binary Search Outline
 int lmin = 0, lmax = 1;
 while (too_small(lmax)) lmax *= 2;
 while (lmin != lmax){
-  int p = (lmin+lmax)/2;
+  int p = (lmin + lmax) / 2;
   if (too_small(p))
     lmin = p+1;
   else
@@ -105,10 +116,26 @@ while (lmin != lmax){
 L = lmin;
 ```
 
+```c++
+Binary Search too_big() version
+int lmin = 1;
+int lmax = n;
+while(lmin != lmax){
+  int p = (lmin + lmax + 1) / 2; // different with the too_small() version
+  if(too_big(p))
+    lmax = p - 1;
+  else
+    lmin = p;
+}
+```
+
+
+
 #### problems:
 
 * _Evoluation(week2)_
 * _TheeV(week 4)_: sorted cities with ascending distance to the first TV transmitter. Binary search the position with splits cities into two parts.
+* _Revenge of the Sith (week 10)_: Binary search the largest k, and for each candidate k, we need to construct a new sub DT. 
 
 
 
@@ -238,13 +265,13 @@ choice of exact internal number type
 >
 > Properties of DT:
 >
-> 	1. It maximizes the smallest angle.
-> 	2. It contains __Euclidean Minimum Spanning Tree__.  ==> related with the connection problems.
-> 	3. It contains __nearest neighbor graph__. (The edge between each node to its nearest neighbor is in DT)
-> 	4. For the __second nearest neighbor__: let v1 be the nearest neighbor of v and v2 be the second nearest neighbor of v. Then at least one of edge (v,v2) or edge(v1, v2) is in DT.
-> 	5. It is unique in general.
-> 	6. It could be construct efficiently! __O(n*logn)__ in 2D. ==> when we want to change time complexity from n^2 to nlogn
-> 	7. Delaunay Triangulation v.s. Voronoi-Diagram.  ==> ```t.nearest_vertex()```
+> > 1. It maximizes the smallest angle.
+> > 2. It contains __Euclidean Minimum Spanning Tree__.  ==> related with the connection problems.
+> > 3. It contains __nearest neighbor graph__. (The edge between each node to its nearest neighbor is in DT)
+> > 4. For the __second nearest neighbor__: let v1 be the nearest neighbor of v and v2 be the second nearest neighbor of v. Then at least one of edge (v,v2) or edge(v1, v2) is in DT.
+> > 5. It is unique in general.
+> > 6. It could be construct efficiently! __O(n*logn)__ in 2D. ==> when we want to change time complexity from n^2 to nlogn
+> > 7. Delaunay Triangulation v.s. Voronoi-Diagram.  ==> ```t.nearest_vertex()```
 
 
 
@@ -345,7 +372,8 @@ for(Edge_iterator e=t.finite_edges_begin(); e != t.finite_edges_end(); e++){
 * _Bistro(week 8)_: __nearest neighbour__
 * ___H1N1(week 8)___: moving the disk without colliding with a given point set P. __DT + BFS__ but check the distance between user and its nearest neighbor at beginning.
 * _Germs(week 8)_: nearest neighbor graph + sort/binary search
-* _Revenge of the Sith(week 10)_: 
+* _Light the Stage(week 10)_: Use DT for the first test case. For the second test case, just try the trivial method.
+* _Revenge of the Sith(week 10)_: It uses the property that __DT contains the EMST__. __Given the distance threshold, two nodes are connected on the EMST of G <==> these two nodes are connected on G__. 
 
 ## BGL
 
@@ -391,6 +419,9 @@ void dfs(int v) {
 
 * _Evolution(week 2)_
 * _Odd Route(week 10)_: what are the nodes (abstract states)?
+  * For each node, there are (even_num_edges, odd_num_edges) × (even_weight, odd_weight) __four different states__, so __split each original vertex to four vertices__. And use Dijkstra shortest path find shortest path between the new source and target. It may also considered in DP approach.
+
+
 
 
 
@@ -403,7 +434,7 @@ void dfs(int v) {
 > 4. Strongly connected components complexity: ```O(v+E)```. 
 > 5. Biconnected subgraph: the biconnected components of a graph are the maximal subsets of vertices such that the __removal of a vertex__ from a particular component __will not__ disconnect the component. Complexity ```O(V+E)```
 > 6. Prim MST: add the closest undiscovered neighbor of all discovered neighbors; Kruskal MST: add the next shortest edge without creating a cycle 
-> 7. BGL __does not__ provide weighted matching algorithms.
+> 7. BGL __does not__ provide __weighted matching algorithms__.
 
 ```c++
 Union-Find in C++
@@ -420,6 +451,7 @@ ufa.union_set(i, j) // merge
 * _Ant Challenge(week 4)_: 
 * _Important Bridges(week 4)_: biconnected connected graph
 * _Buddy Selection(week 4)_: maximum matching on unweighted graph.
+* _Connecting Cities (First subproblem in week 11)_: find __maximum matching on a tree__.  Similar to the subproblem _Downhill Course in Winter games_, that find __maximum independent set on a graph whose max degree is 2__.
 
 
 
@@ -480,6 +512,7 @@ __Problems related with flow__
 * _Knights(week 7)_: max flow with __vertex capacity__: split each vertex to two vertices
 * _Casino Royale (week 9)_: Similar to Car Sharing problem. __Lots of binary variable (choices), which corresponds to different paths for the flow!__ 
 * _First problem in Winter Games_. Find (greedy method) the __maximum independent set__ in a graph with __max degree no more than 2__.
+* _Consecutive Constructions(week 11)_: __maximum matching on a biparitite graph__
 * _Cantonal Courier_
 * _Car Sharing(week 11)_ 
 
@@ -536,6 +569,8 @@ __Problems related with flow__
 __Problems to revisit__
 
 * _H1N1_ : add vertex information and face information 
+* Odd route: use shortest path, not DP.
+* _Connecting Cities_: Find maximum matching on a tree.
 
 ---
 
