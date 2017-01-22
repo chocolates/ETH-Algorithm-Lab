@@ -92,7 +92,9 @@ Recurrence: D_{S,v} = min_{u} (D_{S-{v},u} + cost(u,v))
 
 * _Bonus Level(week 10):_ 2-Dimension DP, but with two players. 
 
-* _Connecting Cities(week 11)_: Tree DP, __find the maximum matching__ on a tree in O(n).
+* _Connecting Cities(week 11)_: Tree DP, __find the maximum matching on a tree__ in O(n).
+
+* _Punch(week 11)_: 1-D DP, with some additional informations (which kind of beverage is used). The subproblem is MinCosts[i] which is the min cost for buying no less than i liters beverage. And we finally output MinCost[k].
 
 
 
@@ -186,17 +188,30 @@ while(lmin != lmax){
 
 ## Brute Force / Split and List
 
+> Split all elements to different subsets (e.g. S1=used and S2= not used; e.g. S1=elements in the first room, S2=elements in the 2nd room, S3=elements in the 3rd room) and examine properties that each subset should satisfy.
+
+
+
 > Example problem: Is there a subset of S which sums to k? (if k is small, it could be solved by DP withO(n*k) ). 
 >
 > Search all possible strategies: in each strategy, we make a decision for each item that whether or not to take this item. ==> n is small O(n*2^(n/2)), n<=40.
->
+
+
+
 > Methods: __Backtracking__ V.S. __Representing set as bits__ [Slide 5]
+>
+> Trick: complexity should allow exponential time.
+>
+> Trick2: split and list
 
 
 
 #### Problems:
 
 * _Light at the Museum(week 5)_: Similar to the example problem, but need to check __M constraints__. 
+* _Planks (week 11)_: 
+  * Split all elements to four subgroups
+  * Examine the sum (the property each subgroup should satisfy) of each subgroup.
 
 ## CGAL - Intro
 
@@ -246,6 +261,13 @@ make
 choice of exact internal number type
 #include <CGAL/Gmpz.h> : for integer 
 #include <CGAL/Gmpzf.h>: for float number
+```
+
+```c++
+Bland Pivot Rule
+CGAL::Quadratic_program_options options;
+options.set_pricing_strategy(CGAL::QP_BLAND);
+Solution s = CGAL::SOLVER(program, ET(), options);
 ```
 
 
@@ -374,7 +396,7 @@ for(Edge_iterator e=t.finite_edges_begin(); e != t.finite_edges_end(); e++){
 * _Germs(week 8)_: nearest neighbor graph + sort/binary search
 * _Light the Stage(week 10)_: Use DT for the first test case. For the second test case, just try the trivial method.
 * _Revenge of the Sith(week 10)_: It uses the property that __DT contains the EMST__. __Given the distance threshold, two nodes are connected on the EMST of G <==> these two nodes are connected on G__. 
-* _[Clues(week 11)](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-clues.pdf)_: Connected components —> for the given distance threshold, EMST and original graph is equal w.r.t connectivity. Furthermore, it checks whether the graph is two colorable.
+* _[Clues(week 11)](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-clues.pdf)_: Connected components —> for the given distance threshold, EMST and original graph is equal w.r.t connectivity. Furthermore, to check whether the graph is two colorable, we just need to construct two new DT.
 
 ## BGL
 
@@ -461,6 +483,7 @@ ufa.union_set(i, j) // merge
 > The MaxFlow (MinCost) problem
 >
 > - some quantities are reserved in some sources. These quantities want to go to the sinks.
+> - node v: the abstract states. For example, each node in _Consecutive Constructions_ (city, in/out)
 > - edge (u, v): the quantity can go from u (abstract state) to v (abstract state)
 > - different decisions <==> different path for the quantities. In more details, in most cases, we have decision variables and the objective function. What we want to do is to choose the particular decision that make objective function optimal. When we change decisions, we change the network structure for the flow (e.g. _On Her Majesty's Secret Service_) or change the capacity of edges. This results in different flow!
 > - final distribution of quantities &/ distribution of flow is related with the objective function
@@ -516,8 +539,14 @@ __Problems related with flow__
 * _Casino Royale (week 9)_: Similar to Car Sharing problem. __Lots of binary variable (choices), which corresponds to different paths for the flow!__ 
 * _First problem in Winter Games_. Find (greedy method) the __maximum independent set__ in a graph with __max degree no more than 2__.
 * _Consecutive Constructions(week 11)_: __maximum matching on a biparitite graph__
+* ___[Car Sharing](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/carsharing-solution.pdf)___(week 11): 
+  * We construct the graph following given constraints. __Important__: what are the nodes(abstract states)
+  * Different strategies correspond to different paths of the flow.
+  * Use the so-called coordinate compression trick.
+  * Eleminate negative costs by making each s-t path get shifted by the same total amount!
+
+
 * _Cantonal Courier_
-* _Car Sharing(week 11)_ 
 
 ## Extra
 
@@ -527,7 +556,7 @@ __Problems related with flow__
 * others
   - _False Coin(week 1)_ : 
 
-  - __Union-Find__ data structure. Methoded in lecture2 MST
+  - __Union-Find__ data structure. Mentioned in lecture2 MST
 
     ```c++
     #include <boost/pending/disjoint_sets.hpp>
