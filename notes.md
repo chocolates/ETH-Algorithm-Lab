@@ -96,6 +96,10 @@ Recurrence: D_{S,v} = min_{u} (D_{S-{v},u} + cost(u,v))
 
 * _Punch(week 11)_: 1-D DP, with some additional informations (which kind of beverage is used). The subproblem is MinCosts[i] which is the min cost for buying no less than i liters beverage. And we finally output MinCost[k].
 
+* ___New Tiles(week 12)___: 1- dimension DP, but each subproblem is also a 1-D DP.
+
+* ___Corbusier's Modulor(week 12)___: 2-D DP. "whether exists some elements that sum to k". ```M[i][j]```=1 if first(i) elements that could sum to j; and ```M[i][j]``` =0 vice versa.
+
 
 
 ## Binary Search
@@ -192,9 +196,11 @@ while(lmin != lmax){
 
 
 
-> Example problem: Is there a subset of S which sums to k? (if k is small, it could be solved by DP withO(n*k) ). 
+> __Example problem: Is there a subset of S which sums to k? (if k is small, it could be solved by DP withO(n*k) ).__ 
 >
 > Search all possible strategies: in each strategy, we make a decision for each item that whether or not to take this item. ==> n is small O(n*2^(n/2)), n<=40.
+>
+> _Another approach:_ Dynamic Programming. 
 
 
 
@@ -278,6 +284,8 @@ Solution s = CGAL::SOLVER(program, ET(), options);
 * _Portfolios(week 7)_: similar to the example on slide, but add an addition constraint.
 * _Inball(week 7)_: LP. [Solution here](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-inball.pdf).
 * _Stamp Exhibition(week 8)_: use Gmpzf. There are 200 variables.
+* ___Radiation Therapy(week 12)___: d-degree polynomial
+* ___The Empire Strikes Back(week 12)___: 
 
 
 
@@ -397,6 +405,7 @@ for(Edge_iterator e=t.finite_edges_begin(); e != t.finite_edges_end(); e++){
 * _Light the Stage(week 10)_: Use DT for the first test case. For the second test case, just try the trivial method.
 * _Revenge of the Sith(week 10)_: It uses the property that __DT contains the EMST__. __Given the distance threshold, two nodes are connected on the EMST of G <==> these two nodes are connected on G__. 
 * _[Clues(week 11)](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-clues.pdf)_: Connected components —> for the given distance threshold, EMST and original graph is equal w.r.t connectivity. Furthermore, to check whether the graph is two colorable, we just need to construct two new DT.
+* _Snakes strike back(week 12)_: very similar to H1N1. Four vertices of each cage are inserted the Triangulation.
 
 ## BGL
 
@@ -443,6 +452,10 @@ void dfs(int v) {
 * _Evolution(week 2)_
 * _Odd Route(week 10)_: what are the nodes (abstract states)?
   * For each node, there are (even_num_edges, odd_num_edges) × (even_weight, odd_weight) __four different states__, so __split each original vertex to four vertices__. And use Dijkstra shortest path find shortest path between the new source and target. It may also considered in DP approach.
+* _Domino Snake(week 12)_: 
+  * Chessboard —> two states
+  * connected or not
+  * "whether such path exist or not" <==> "whether the entrance and exit are in different states of chessboard && whether entrance and exit are connected"
 
 
 
@@ -460,7 +473,7 @@ void dfs(int v) {
 > 7. BGL __does not__ provide __weighted matching algorithms__.
 
 ```c++
-Union-Find in C++
+Union-Find in C++ (BGL connected... -> Incremental Connected Components -> Disjoint set)
 #include <boost/pending/disjoint_sets.hpp>
 typedef boost::disjoint_sets_with_storage<> Uf;
 Uf ufa(num_elements);
@@ -470,7 +483,7 @@ ufa.union_set(i, j) // merge
 
 #### problems:
 
-* _GoldenEye(week 12)_: 
+* ___GoldenEye(week 12)___: For the given distance threshold, two nodes are connected on the MST is equal to that these two nodes are connected on the original graph. Furthermore, use the __Union-Find__ data structure.
 * _Ant Challenge(week 4)_: 
 * _Important Bridges(week 4)_: biconnected connected graph
 * _Buddy Selection(week 4)_: maximum matching on unweighted graph.
@@ -603,6 +616,7 @@ __Problems to revisit__
 * _H1N1_ : add vertex information and face information 
 * Odd route: use shortest path, not DP.
 * _Connecting Cities_: Find maximum matching on a tree.
+* _New tiles._ 1-d DP, but subproblem is also a 1-D DP.
 
 ---
 
