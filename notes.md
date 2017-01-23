@@ -100,6 +100,8 @@ Recurrence: D_{S,v} = min_{u} (D_{S-{v},u} + cost(u,v))
 
 * ___Corbusier's Modulor(week 12)___: 2-D DP. "whether exists some elements that sum to k". ```M[i][j]```=1 if first(i) elements that could sum to j; and ```M[i][j]``` =0 vice versa.
 
+* _DHL(week 13)_: 2-Dimension DP. But __do not need to consider all possible subproblems__. (Sa1 - Ka1)(Sb1-Kb1) + (Sa2 - Ka2)(Sb2 - Kb2) <= (Sa1+Sa2 - (Ka1+Ka2))(Sb1+Sb2-(Kb1+Kb2))
+
 
 
 ## Binary Search
@@ -299,6 +301,7 @@ assert (s.solves_linear_program(lp));
 * _Stamp Exhibition(week 8)_: use Gmpzf. There are 200 variables.
 * ___Radiation Therapy(week 12)___: d-degree polynomial with THREE variables: choose 3 elements in (d+3) ==> if d==30, then there are about 5000~ variables.
 * ___The Empire Strikes Back(week 12)___: 
+* ___Carol's Configuration(week13)___: 
 
 
 
@@ -545,6 +548,7 @@ void topologicalSortUtil(int v, vector<int>& visited, stack<int> Stack){
 * _Buddy Selection(week 4)_: maximum matching on unweighted graph.
 * _Connecting Cities (First subproblem in week 11)_: find __maximum matching on a tree__.  Similar to the subproblem _Downhill Course in Winter games_, that find __maximum independent set on a graph whose max degree is 2__.
 * ___Bob's Burden(week 13)___: find the central ball.
+  * what is the optimum choice? For each choice, if the choice is optimum, could the method correctly return the optimum? if the choice is not the correct one, does the method return a different (worse) result? If so, __search method__ might be useful.
 
 
 ```c++
@@ -634,30 +638,18 @@ __Problems related with flow__
 
 
 * _Placing Knights (week 12)_: Bipartite graph! Maximum independent set!
-* Cantonal Courier_
+* _Cantonal Courier_
 
 ## Extra
 
 * `odd - odd = even` , `even - even = even`
   - _even pairs(week 1)_ , _even matrices(week 1)_ , 
 
-* others
-  - _False Coin(week 1)_ : 
-
-  - __Union-Find__ data structure. Mentioned in lecture2 MST
-
-    ```c++
-    #include <boost/pending/disjoint_sets.hpp>
-    typedef boost::disjoint_sets_with_storage<> Uf;
-    Uf ufa(num_elements);
-    ufa.find_set(i) //
-    ufa.union_set(i, j)
-    ```
-
-    ​
+* False Coin(week 1)
 
 
 - Answer queries __on the fly__! See _Evoluation(week 2)_ 
+- _Algocoon Group_ and _Bob's Burden_ are little similar. __Search for the optimum__
 
 * c++ MISC.
 
@@ -692,6 +684,7 @@ __Problems to revisit__
 * Odd route: use shortest path, not DP.
 * _Connecting Cities_: Find maximum matching on a tree.
 * _New tiles._ 1-d DP, but subproblem is also a 1-D DP.
+* _Carol's Configuration_: LP. About the constraints.
 
 ---
 
