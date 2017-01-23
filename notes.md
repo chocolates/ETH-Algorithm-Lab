@@ -270,10 +270,23 @@ choice of exact internal number type
 ```
 
 ```c++
-Bland Pivot Rule
+// Without Bland Pivot Rule
+typedef CGAL::Quadratic_program<int> Program;
+typedef CGAL::Quadratic_program_solution<ET> Solution;
+
+Program lp (CGAL::SMALLER, true, 0, false, 0);
+Solution s = CGAL::solve_linear_program(lp, ET());
+assert (s.solves_linear_program(lp));
+
+// With Bland Pivot Rule
+typedef CGAL::Quadratic_program<ET> Program;
+typedef CGAL::Quadratic_program_solution<ET> Solution;
+
+Program lp(CGAL::SMALLER, false, 0, false, 0);
 CGAL::Quadratic_program_options options;
 options.set_pricing_strategy(CGAL::QP_BLAND);
-Solution s = CGAL::SOLVER(program, ET(), options);
+Solution s = CGAL::solve_linear_program(lp, ET(), options);
+assert (s.solves_linear_program(lp));
 ```
 
 
@@ -284,7 +297,7 @@ Solution s = CGAL::SOLVER(program, ET(), options);
 * _Portfolios(week 7)_: similar to the example on slide, but add an addition constraint.
 * _Inball(week 7)_: LP. [Solution here](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-inball.pdf).
 * _Stamp Exhibition(week 8)_: use Gmpzf. There are 200 variables.
-* ___Radiation Therapy(week 12)___: d-degree polynomial
+* ___Radiation Therapy(week 12)___: d-degree polynomial with THREE variables: choose 3 elements in (d+3) ==> if d==30, then there are about 5000~ variables.
 * ___The Empire Strikes Back(week 12)___: 
 
 
@@ -405,7 +418,7 @@ for(Edge_iterator e=t.finite_edges_begin(); e != t.finite_edges_end(); e++){
 * _Light the Stage(week 10)_: Use DT for the first test case. For the second test case, just try the trivial method.
 * _Revenge of the Sith(week 10)_: It uses the property that __DT contains the EMST__. __Given the distance threshold, two nodes are connected on the EMST of G <==> these two nodes are connected on G__. 
 * _[Clues(week 11)](https://github.com/chocolates/ETH-Algorithm-Lab/blob/master/Official%20Solutions/solution-clues.pdf)_: Connected components —> for the given distance threshold, EMST and original graph is equal w.r.t connectivity. Furthermore, to check whether the graph is two colorable, we just need to construct two new DT.
-* _Snakes strike back(week 12)_: very similar to H1N1. Four vertices of each cage are inserted the Triangulation.
+* _Snakes strike back(week 12)_: very similar to _H1N1_. Four vertices of each cage are inserted the Triangulation.
 
 ## BGL
 
@@ -451,7 +464,7 @@ void dfs(int v) {
 
 * _Evolution(week 2)_
 * _Odd Route(week 10)_: what are the nodes (abstract states)?
-  * For each node, there are (even_num_edges, odd_num_edges) × (even_weight, odd_weight) __four different states__, so __split each original vertex to four vertices__. And use Dijkstra shortest path find shortest path between the new source and target. It may also considered in DP approach.
+  * For each node, there are (even_num_edges, odd_num_edges) × (even_weight, odd_weight) __four different states__, so __split each original vertex to four vertices__. Then use __Dijkstra shortest path__ find shortest path between the new source and target. It may also considered in DP approach.
 * _Domino Snake(week 12)_: 
   * Chessboard —> two states
   * connected or not
@@ -473,13 +486,56 @@ void dfs(int v) {
 > 7. BGL __does not__ provide __weighted matching algorithms__.
 
 ```c++
-Union-Find in C++ (BGL connected... -> Incremental Connected Components -> Disjoint set)
+//Union-Find in C++ (BGL connected... -> Incremental Connected Components -> Disjoint set)
 #include <boost/pending/disjoint_sets.hpp>
 typedef boost::disjoint_sets_with_storage<> Uf;
 Uf ufa(num_elements);
 ufa.find_set(i) // return the representation of i
 ufa.union_set(i, j) // merge 
 ```
+
+```c++
+// Typological Sort one: call bgl topological_sort() function.
+```
+
+```c++
+//Topological Sorting two: Kahn'a algorithm
+Initialization: 
+	L <- Empty queue // queue that will contain all sorted elements
+    S <- Queue containing all elements that has no incoming edges // queue that contains all elements that have no incoming edges
+    while(S is not empty){
+      n <- S.pop();
+      L.add(n);
+      for m that there is a link from n to m:
+      	remove edge(n, m) from graph;
+      	if(m has no incoming edges)
+          S.add(m)
+    }
+	if Graph still have edges:
+		Graph has cycle
+    else
+      	return L
+```
+
+```c++
+//Topological Sorting three: DFS (same in BGL)
+void topologicalSort(){
+  stack<int> Stack;
+  vector<int> visited(V, false);
+  for (int i = 0; i < V; i++)
+    if (visited[i] == false)
+      topologicalSortUtil(i, visited, Stack);
+}
+void topologicalSortUtil(int v, vector<int>& visited, stack<int> Stack){
+  visited[v] = true;
+  for (i = adj[v].begin(); i != adj[v].end(); ++i)
+    if (!visited[*i])
+      topologicalSortUtil(*i, visited, Stack);
+  Stack.push(v);
+}
+```
+
+
 
 #### problems:
 
@@ -488,6 +544,24 @@ ufa.union_set(i, j) // merge
 * _Important Bridges(week 4)_: biconnected connected graph
 * _Buddy Selection(week 4)_: maximum matching on unweighted graph.
 * _Connecting Cities (First subproblem in week 11)_: find __maximum matching on a tree__.  Similar to the subproblem _Downhill Course in Winter games_, that find __maximum independent set on a graph whose max degree is 2__.
+* ___Bob's Burden(week 13)___: find the central ball.
+
+
+```c++
+/* Some useful stuff in BGL */
+// whether an edge exist or not
+tie(e, success) = boost::edge(v1, v2, G0);
+if(!success){
+  tie(e, success) = add_edge(v1, v2, G0);
+}
+// number of vertices
+num_vertices(G); // in the tutorial
+// Iteration on edges and vertices --> see tutorial
+// 
+```
+
+
+
 
 
 
@@ -559,7 +633,8 @@ __Problems related with flow__
   * Eleminate negative costs by making each s-t path get shifted by the same total amount!
 
 
-* _Cantonal Courier_
+* _Placing Knights (week 12)_: Bipartite graph! Maximum independent set!
+* Cantonal Courier_
 
 ## Extra
 
