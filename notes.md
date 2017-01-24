@@ -302,6 +302,8 @@ assert (s.solves_linear_program(lp));
 * ___Radiation Therapy(week 12)___: d-degree polynomial with THREE variables: choose 3 elements in (d+3) ==> if d==30, then there are about 5000~ variables.
 * ___The Empire Strikes Back(week 12)___: 
 * ___Carol's Configuration(week13)___: 
+* _Portfolios Revisited(week 13)_: the variables are alpha_1, alpha_2, …, alpha_n. The variance contains product of two alpha's, so the variance cannot be put in the constraint. In other words, we need use binary search technique.
+  * CGAL::solve_nonnegative_quadratic_program() is faster than CGAL::solve_quadratic_program().
 
 
 
@@ -427,7 +429,7 @@ for(Edge_iterator e=t.finite_edges_begin(); e != t.finite_edges_end(); e++){
 
 > 1. __Graph Traverse: BFS, DFS__
 >
->    Two considerations: (1) Nodes in graph would be seen as 'abstract states' —> answer the questions like:  whether some state could reached from the given state (e.g. _odd route_), or what is the shortest path from one state to another state. (2) We are constructing path __incrementally__, which suggests we could answer queries __on the fly__.
+>    __Two considerations__: (1) Nodes in graph would be seen as 'abstract states' —> answer the questions like:  whether some state could reached from the given state (e.g. _odd route_), or what is the shortest path from one state to another state. (2) We are constructing path __incrementally__, which suggests we could answer queries __on the fly__.
 
 ```c++
 // BFS implementation
@@ -606,6 +608,7 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
 * _Canteen(week 9)_: Max Flow Min Cost, still make all costs on edges nonnegative. __Shift the cost of each edge in such a way that each s-t-path gets shifted by the same total amount__ 
 * _Consecutive Construction (week 11)_: 
 * _Missing Roads(week 11)_: Different flow corresponds to different choice (strategy). The Max Flow should correspond to the optimal strategy. In other words, the set of all possible flows and the set of all strategies should have one-to-one map. 
+* _Sweepers(week 12)_: find the __sufficient and necessary conditions__ of whether all cooridors could be swept by these sweepers or not: (1) there are more than S edge-disjoint paths from sweepers to doors; (2) Euler tour; (3) all corridors could be visited by at least one sweeper.
 
 
 ---
@@ -638,7 +641,8 @@ __Problems related with flow__
 
 
 * _Placing Knights (week 12)_: Bipartite graph! Maximum independent set!
-* _Cantonal Courier_
+* _The Phantom Menace(week 13)_: (Menger's theorem) the maximum number of vertex-disjoint S-T paths is equal to the minimum size of a S-T separating vertex set.
+* _Cantonal Courier_: 
 
 ## Extra
 
