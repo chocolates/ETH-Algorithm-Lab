@@ -77,7 +77,7 @@ Recurrence: D_{S,v} = min_{u} (D_{S-{v},u} + cost(u,v))
   * f_0(i) := minimum operations to make first i groups same with given pattern
   * f_1(i) := minimum operations to make first i groups totally different with given pattern
 
-* _The Great Game(week 5)_: 1-dimension DP
+* ___The Great Game(week 5)___: 1-dimension DP
 
   * M0(i) := shortest steps from i'th transition entry to destination
   * M1(i) := longest steps from i'th transition engty to destination
@@ -410,6 +410,13 @@ for(Edge_iterator e=t.finite_edges_begin(); e != t.finite_edges_end(); e++){
 }
 ```
 
+```c++
+// DT useful functions
+CGAL::side_of_bounded_circle(p1, p2, p3, a);
+t.get_conflicts(point); // the faces whose circumcircle contains point.
+t.nearest_neighbor();
+```
+
 
 
 
@@ -601,7 +608,7 @@ Push Relabel is almost always the best choice in BGL. O(n^3)
 
 * _Real Estate Market(week 9)_: Max Flow Min Cost. Make the costs nonnegative.
 * _Satellites(week 9)_: Minimum vertex cover on bipartite graph. -> max flow then BFS.
-* _Algocoon Group(week 9)_: Global [Min-Cut](http://theory.stanford.edu/~trevisan/cs261/lecture13.pdf). Following steps:
+* _Algocoon Group(week 9)_: [Global Min-Cut](http://theory.stanford.edu/~trevisan/cs261/lecture13.pdf). Following steps:
   * choose an arbitrary vertex s in V
   * for each t \in V - {v}, compute the minimum s-t cut
   * return the minimum one among all s-t minimum cut.
