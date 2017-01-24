@@ -111,7 +111,7 @@ Recurrence: D_{S,v} = min_{u} (D_{S-{v},u} + cost(u,v))
 > Properties: (1) for a fixed k, you can check __efficiently__ if it is ‘large enough’, (2) The property of not being too small is __monotone__. [Slide 2]
 
 ```c++
-Binary Search Outline
+// Binary Search Outline
 int lmin = 0, lmax = 1;
 while (too_small(lmax)) lmax *= 2;
 while (lmin != lmax){
@@ -125,7 +125,7 @@ L = lmin;
 ```
 
 ```c++
-Binary Search too_big() version
+// Binary Search too_big() version
 int lmin = 1;
 int lmax = n;
 while(lmin != lmax){
@@ -266,7 +266,7 @@ make
 > QP: solving nonnegative quadratic program is faster
 
 ```c++
-choice of exact internal number type
+// choice of exact internal number type
 #include <CGAL/Gmpz.h> : for integer 
 #include <CGAL/Gmpzf.h>: for float number
 ```
@@ -322,7 +322,7 @@ assert (s.solves_linear_program(lp));
 
 
 ```c++
-DT Examplary Calls 1
+// DT Examplary Calls 1
   
 typedef CGAL::Exact_predicates_inexact_constructions_kernel K;
 typedef CGAL::Delaunay_triangulation_2<K> Triangulation;
@@ -375,7 +375,7 @@ for(Vertex_iterator v = t.finite_vertices_begin(); v != t.finite_vertices_end();
 reference: [CGAL doc 2D triangulation with vertex information](https://judge.inf.ethz.ch/doc/cgal/doc_html/Triangulation_2/Triangulation_2_2info_insert_with_pair_iterator_2_8cpp-example.html#_a1)
 
 ```c++
-DT Example Calls 2 (with info())
+// DT Example Calls 2 (with info())
   
 #include <CGAL/Exact_predicates_inexact_constructions_kernel.h>
 #include <CGAL/Delaunay_triangulation_2.h>
@@ -430,7 +430,7 @@ for(Edge_iterator e=t.finite_edges_begin(); e != t.finite_edges_end(); e++){
 >    Two considerations: (1) Nodes in graph would be seen as 'abstract states' —> answer the questions like:  whether some state could reached from the given state (e.g. _odd route_), or what is the shortest path from one state to another state. (2) We are constructing path __incrementally__, which suggests we could answer queries __on the fly__.
 
 ```c++
-BFS implementation
+// BFS implementation
 queue<int> q;
 vector<int> pushed(n, 0);
 q.push_back(v0);
@@ -449,7 +449,7 @@ while (not q.empty()) {
 ```
 
 ```c++
-DFS implementation
+// DFS implementation
 vector<int> visited(n, 0);
 void dfs(int v) {
 	// do something for v
@@ -489,7 +489,7 @@ void dfs(int v) {
 > 7. BGL __does not__ provide __weighted matching algorithms__.
 
 ```c++
-//Union-Find in C++ (BGL connected... -> Incremental Connected Components -> Disjoint set)
+// Union-Find in C++ (BGL connected... -> Incremental Connected Components -> Disjoint set)
 #include <boost/pending/disjoint_sets.hpp>
 typedef boost::disjoint_sets_with_storage<> Uf;
 Uf ufa(num_elements);
@@ -502,7 +502,7 @@ ufa.union_set(i, j) // merge
 ```
 
 ```c++
-//Topological Sorting two: Kahn'a algorithm
+// Topological Sorting two: Kahn'a algorithm
 Initialization: 
 	L <- Empty queue // queue that will contain all sorted elements
     S <- Queue containing all elements that has no incoming edges // queue that contains all elements that have no incoming edges
@@ -521,7 +521,7 @@ Initialization:
 ```
 
 ```c++
-//Topological Sorting three: DFS (same in BGL)
+// Topological Sorting three: DFS (same in BGL)
 void topologicalSort(){
   stack<int> Stack;
   vector<int> visited(V, false);
